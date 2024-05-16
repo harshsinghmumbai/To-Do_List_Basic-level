@@ -1,35 +1,88 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [title, settitle] = useState("");
+  const [desc, setdesc] = useState("");
+  const [mainTask, setmainTask] = useState([]);
+
+  const submithandler = (e) => {
+    e.preventDefault();
+    setmainTask([...mainTask, { title, desc }]);
+    settitle("");
+    setdesc("");
+  };
+  let randerTask = (
+    <h1 className="text-xl font-semibold ">No task Available</h1>
+  );
+
+  const deletehandler = (i) => {
+    let copyTask = [...mainTask];
+    copyTask.splice(i, 1);
+    setmainTask(copyTask);
+  };
+
+  if (mainTask.length > 0) {
+    randerTask = mainTask.map((elem, i) => {
+      return (
+        <li className="flex justify-between items-center" key={i}>
+          <div className="flex justify-between text-xl font-semibold font-mono w-[90%]">
+            <h5 className="mb-3">{elem.title}</h5>
+            <h6>{elem.desc}</h6>
+            <button
+              onClick={() => {
+                deletehandler(i);
+              }}
+              className="bg-red-400 text-white text-lg px-5 rounded-lg mb-3"
+            >
+              Delete
+            </button>
+          </div>
+        </li>
+      );
+    });
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div id="parent_container">
+        <h1 className="bg-black text-white text-2xl font-semibold text-center p-1">
+          Harsh To-do List
+        </h1>
+        <div id="form_part" className="text-center mt-5">
+          <form onSubmit={submithandler}>
+            <input
+              type="text"
+              className="outline-none border-2 border-black rounded-lg p-1 px-5 text-xl  "
+              placeholder="Enter Title Here"
+              value={title} //initial value kya hoga //
+              onChange={(e) => {
+                settitle(e.target.value);
+              }}
+            />
+            <input
+              type="text"
+              className="outline-none border-2 border-black rounded-lg p-1 px-5 text-xl ml-5 "
+              placeholder="Enter Task Description"
+              value={desc} //initial value kya hoga //
+              onChange={(e) => {
+                setdesc(e.target.value);
+              }}
+            />
+            <button
+              type="submit"
+              className="bg-black text-white p-1 rounded-lg px-5 text-xl ml-5 font-semibold font-mono"
+            >
+              Add Task
+            </button>
+          </form>
+        </div>
+        <hr className="mt-5 mb-5 border-2" />
+        <div className="bg-slate-200 p-8 ">
+          <ul>{randerTask}</ul>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
