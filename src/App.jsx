@@ -49,10 +49,13 @@ const App = () => {
           Harsh To-do List
         </h1>
         <div id="form_part" className="text-center mt-5">
-          <form onSubmit={submithandler}>
+          <form
+            onSubmit={submithandler}
+            className="space-y-3 flex flex-col justify-center  "
+          >
             <input
               type="text"
-              className="outline-none border-2 border-black rounded-lg p-1 px-5 text-xl  "
+              className="outline-none border-2 border-black rounded-lg p-1 px-5 text-xl sm:w-[19.5rem] sm:h-10  "
               placeholder="Enter Title Here"
               value={title} //initial value kya hoga //
               onChange={(e) => {
@@ -61,7 +64,7 @@ const App = () => {
             />
             <input
               type="text"
-              className="outline-none border-2 border-black rounded-lg p-1 px-5 text-xl ml-5 "
+              className="outline-none border-2 border-black rounded-lg p-1 px-5 text-xl sm:w-[19.5rem] sm:h-10 "
               placeholder="Enter Task Description"
               value={desc} //initial value kya hoga //
               onChange={(e) => {
@@ -70,7 +73,7 @@ const App = () => {
             />
             <button
               type="submit"
-              className="bg-black text-white p-1 rounded-lg px-5 text-xl ml-5 font-semibold font-mono"
+              className="bg-black text-white p-1 rounded-lg px-5 text-xl ml-5 font-semibold font-mono w-32 h-9 sm:w-19 sm:h-10"
             >
               Add Task
             </button>
